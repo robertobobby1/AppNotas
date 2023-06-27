@@ -36,42 +36,19 @@ namespace AppNotas.Utils
             }
         }
 
-        //internal static async Task<bool> RequestStorrageReadAccess()
-        //{
-        //    var status = await Permissions.CheckStatusAsync<Permissions.StorageRead>();
-        //    if (status != PermissionStatus.Granted)
-        //    {
-        //        var res = await MainThread.InvokeOnMainThreadAsync<PermissionStatus>(async () =>
-        //        {
-        //            return await Permissions.RequestAsync<Permissions.StorageRead>();
-        //        });
-
-        //        return res == PermissionStatus.Granted;
-        //    }
-        //    return true;
-        //}
-
-        //internal static async Task<bool> RequestPhotosAccess()
-        //{
-        //    var status = await Permissions.CheckStatusAsync<Permissions.Photos>();
-        //    if (status != PermissionStatus.Granted)
-        //    {
-        //        var res = await Permissions.RequestAsync<Permissions.Photos>();
-        //        return res == PermissionStatus.Granted;
-        //    }
-        //    return true; 
-        //}
-
-        //internal static async Task<bool> RequestStorrageWriteAccess()
-        //{
-        //    var status = await Permissions.CheckStatusAsync<Permissions.StorageWrite>();
-        //    if (status != PermissionStatus.Granted)
-        //    {
-        //        var res = await Permissions.RequestAsync<Permissions.StorageWrite>();
-        //        return res == PermissionStatus.Granted;
-        //    }
-        //    return true;
-        //}
+        internal static async Task<bool> RequestAudioAccess()
+        {
+            var currentStatus = await CrossPermissions.Current.CheckPermissionStatusAsync<MicrophonePermission>();
+            if (currentStatus != Plugin.Permissions.Abstractions.PermissionStatus.Granted)
+            {
+                var status = await CrossPermissions.Current.RequestPermissionAsync<MicrophonePermission>();
+                return status == Plugin.Permissions.Abstractions.PermissionStatus.Granted;
+            }
+            else
+            {
+                return true;
+            }
+        }
 
     }
 }

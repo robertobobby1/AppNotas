@@ -29,7 +29,6 @@ namespace AppNotas.ViewModels
         private string entryTextColor;
         public string EntryTextColor { get => entryTextColor; set => SetProperty(ref entryTextColor, value); }
 
-
         // COMMANDS
         public ICommand NavigateBack => new Command(PerformNavigateBack);
         public ICommand AddSection => new Command(AddSectionCommand);
@@ -156,13 +155,32 @@ namespace AppNotas.ViewModels
             else
             {
                 Section section = Casts.getSection(NameAndOrderable);
+                if (section.name == "__!!__")
+                    section = GetSecretSection();
+
                 if (section.isFinal)
                     setCollection(section.Notes);
                 else
                     setCollection(section.Sections);
 
                 setNavigation(section.Id);
+                Title = (Memory.FatherSection == null)
+                    ? Memory.FatherSection.name
+                    : "Home";
             }
+        }
+
+        private Section GetSecretSection()
+        {
+            List<Section> secret = Database
+                .GetAllWithChildren<Section>(i => i.FatherId == null && i.name == "___!!___", true);
+            if (secret != null)
+                return secret.FirstOrDefault();
+
+            Section section = new Section("___!!___");
+            section.Id = Database.Insert(section);
+
+            return section;
         }
 
         /*************************************************************************

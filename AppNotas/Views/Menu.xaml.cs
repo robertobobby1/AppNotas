@@ -17,6 +17,7 @@ namespace AppNotas.Views
 
         // BINDABLE VALUES
         public bool IsArrow { get { return (bool)GetValue(IsArrowProperty); } set { SetValue(IsArrowProperty, value); } }
+        public string Text { get { return (string)GetValue(TextProperty); } set { SetValue(TextProperty, value); } }
         public Command LeftCommand { get { return (Command)GetValue(LeftCommandProperty); } set { SetValue(LeftCommandProperty, value); } }
         public Command RightCommand { get { return (Command)GetValue(RightCommandProperty); } set { SetValue(RightCommandProperty, value); } }
 
@@ -24,6 +25,9 @@ namespace AppNotas.Views
         public static readonly BindableProperty IsArrowProperty = BindableProperty.Create(
             nameof(IsArrow), typeof(bool), typeof(Menu), false, propertyChanged: IsArrowPropertyChanged
         );
+        public static readonly BindableProperty TextProperty = BindableProperty.Create(
+            nameof(Text), typeof(string), typeof(Menu), "", propertyChanged: TextPropertyChanged
+        ); 
         public static readonly BindableProperty LeftCommandProperty = BindableProperty.Create(
             nameof(LeftCommand), typeof(ICommand), typeof(Menu), null, propertyChanged: LeftCommandPropertyChanged
         );
@@ -35,6 +39,11 @@ namespace AppNotas.Views
         private static void IsArrowPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             ((Menu)bindable).setImage();
+        }
+
+        private static void TextPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            ((Menu)bindable).textLabel.Text = (string)newValue;
         }
 
         private static void LeftCommandPropertyChanged(BindableObject bindable, object oldValue, object newValue)

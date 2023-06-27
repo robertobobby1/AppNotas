@@ -156,10 +156,6 @@
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\drawable\back.png">
-      <SubType></SubType>
-      <Generator></Generator>
-    </AndroidResource>
     <AndroidResource Include="Resources\drawable\pencil.png">
       <SubType></SubType>
       <Generator></Generator>
@@ -180,6 +176,12 @@
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
+    <AndroidResource Include="Resources\drawable\back.png" />
+    <AndroidResource Include="Resources\drawable\next.png" />
+    <AndroidResource Include="Resources\drawable\pause.png" />
+    <AndroidResource Include="Resources\drawable\play.png" />
+    <AndroidResource Include="Resources\drawable\playBlack.png" />
+    <AndroidResource Include="Resources\drawable\previous.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AppNotas\AppNotas.csproj">

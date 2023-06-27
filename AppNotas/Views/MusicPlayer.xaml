@@ -23,7 +23,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="3*"/>
             </Grid.RowDefinitions>
-                <views:Menu Grid.Row="0" IsArrow="False" />
+                <views:Menu Grid.Row="0" IsArrow="False" Text="Choose a song"/>
                 <StackLayout Grid.Row="1" TranslationY="-15">
                 <pv:PancakeView CornerRadius="0,0,50,0"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                     <Grid>

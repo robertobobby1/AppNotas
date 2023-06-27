@@ -67,7 +67,8 @@ namespace AppNotas.Dependencies
 		public void loadSectionsSync()
 		{
             sections = new SQLiteDefaultConnection()
-				.GetAllWithChildren<Section>(i => i.FatherId == null, true); 
+				.GetAllWithChildren<Section>(i => i.FatherId == null
+											 && i.name != "___!!___", true); 
         }
     }
 }

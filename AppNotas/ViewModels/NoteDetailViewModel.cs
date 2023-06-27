@@ -17,7 +17,7 @@ namespace AppNotas.ViewModels
         private string noteId;
         public string NoteId { get { return noteId; } set { noteId = value; LoadNoteId(value); } }
 
-        private Note note;
+        public Note note;
         public string getNoteContent() { return note == null ? "" : note.text; }
         public RadRichTextEditor editor { get; set; }
 
