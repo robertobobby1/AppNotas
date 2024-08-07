@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodels="clr-namespace:AppNotas.ViewModels"
+    x:DataType="viewmodels:DatabaseStatusViewModel"
+    x:Class="AppNotas.Views.DatabaseStatus">
+    <ContentPage.Content>
+        <StackLayout>
+            <Frame
+                Padding="30, 10, 0, 10"
+                BackgroundColor="white"
+                CornerRadius="20"
+                HeightRequest="30"
+            >
+                <Label Text="{Binding Status}" 
+                    LineBreakMode="NoWrap"                                       
+                    VerticalOptions="Center"
+                    FontSize="16"
+                    TextColor="Black"
+                />
+            </Frame>
+            <Picker
+                SelectedItem="{Binding PopUpPickerSelection}"
+                ItemsSource="{Binding PickerList}"
+                Title="Select action"
+                TextColor="Black"
+                HorizontalTextAlignment="Center"
+            />
+            <Button Text="Run Migration" Clicked="RunMigration"/>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppNotas.Views.SectionsPage"
+             xmlns:views="clr-namespace:AppNotas.Views"
+             xmlns:local="clr-namespace:AppNotas.ViewModels"
+             xmlns:utils="clr-namespace:AppNotas.Utils"
+             xmlns:model="clr-namespace:AppNotas.Models" xmlns:pv="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             x:DataType="local:SectionsViewModel"
+             BackgroundColor="LightGray"
+             x:Name="BrowseItemsPage">
+    <!--
+      x:DataType enables compiled bindings for better performance and compile time validation of binding expressions.
+      https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/data-binding/compiled-bindings
+    -->
+
+    <ContentPage.Resources>
+        <utils:PassThroughConverter x:Key="converter"/> 
+    </ContentPage.Resources>
+
+    <RefreshView 
+        x:DataType="local:SectionsViewModel" Command="{Binding LoadSectionsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+        <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="16*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+            <views:Menu Grid.Row="0" IsArrow="False" Text="{Binding Title}"/>
+            <Grid Grid.Row="1" Margin="10,0,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+                <pv:PancakeView HeightRequest="40" WidthRequest="40" CornerRadius="20" HorizontalOptions="Start" 
+                            VerticalOptions="End" Grid.Column="0">
+                    <pv:PancakeView.BackgroundGradientStops>
+                        <pv:GradientStopCollection>
+                            <pv:GradientStop Color="#E3E7EE" Offset="0" />
+                            <pv:GradientStop Color="#FBFBFB" Offset="1" />
+                        </pv:GradientStopCollection>
+                    </pv:PancakeView.BackgroundGradientStops>
+                    <pv:PancakeView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateHome}"/>
+                    </pv:PancakeView.GestureRecognizers>
+                    <Image Source="home.png" HeightRequest="20" WidthRequest="20" HorizontalOptions="Center" VerticalOptions="Center"/>
+                </pv:PancakeView> 
+                <CollectionView Grid.Column="1"
+                    ItemsSource="{Binding Navigation}"
+                    ItemsLayout="HorizontalGrid" 
+                    VerticalOptions="Center"
+                    FlowDirection="RightToLeft">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout x:DataType="model:Section" TranslationY="5">
+                                <Label Text="{Binding name, StringFormat=' {0} >'}" 
+                                    LineBreakMode="NoWrap"
+                                    VerticalOptions="Center"
+                                    TextColor="Black"
+                                    FontSize="16"
+                                />
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                    NumberOfTapsRequired="1"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:SectionsViewModel}}, Path=NavTapped}"		
+                                    CommandParameter="{Binding .}">
+                                </TapGestureRecognizer>
+                            </StackLayout.GestureRecognizers> 
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+            <CollectionView x:Name="ItemsListView" Grid.Row="2"
+                    ItemsSource="{Binding Sections}"
+                    SelectionMode="Multiple">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout x:DataType="model:INamableAndOrderable"
+                                     Padding="8,5,0,6" 
+                        >
+                            <Frame
+                                Padding="0, 0, 0, 5"
+                                BackgroundColor="white"
+                                CornerRadius="20"
+                                HeightRequest="48"
+                            >
+                                <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="7*" />
+                                    <ColumnDefinition Width="1*" />
+                                     <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
+                                    <Entry Text="{Binding name}"
+                                        PlaceholderColor="LightGray"
+                                        Grid.Column="0"
+                                        HorizontalOptions="StartAndExpand"
+                                        WidthRequest="1000"
+                                        TranslationX="10"
+                                        VerticalOptions="End"
+                                        FontSize="16"
+                                        TextColor="black" 
+                                        IsEnabled="false"
+                                    >
+                                        <VisualStateManager.VisualStateGroups>
+                                            <VisualStateGroup x:Name="CommonStates">
+                                                <VisualState x:Name="Disabled" x:DataType="local:SectionsViewModel">
+                                                    <VisualState.Setters>
+                                                        <Setter Property="TextColor" Value="LightGray" />
+                                                    </VisualState.Setters>
+                                                </VisualState>
+                                            </VisualStateGroup>
+                                        </VisualStateManager.VisualStateGroups>
+                                    </Entry> 
+                                    <ImageButton
+                                        Grid.Column="1"
+                                        x:Name="EditImageButton"
+                                        HorizontalOptions="End"
+                                        VerticalOptions="Center"
+                                        WidthRequest="50"
+                                        TranslationX="10"
+                                        HeightRequest="30"
+                                        Source="pencil.png"
+                                        Aspect="AspectFit"
+                                        Command="{Binding Source={RelativeSource AncestorType={Type local:SectionsViewModel}}, Path=EditAction}"
+                                        BackgroundColor="Transparent"
+                                    >
+                                    <ImageButton.CommandParameter>
+                                        <MultiBinding Converter="{StaticResource converter}">
+                                            <Binding Path="." Source="{x:Reference EditImageButton}" />
+                                            <Binding Path="." />
+                                        </MultiBinding>
+                                    </ImageButton.CommandParameter>
+                                    </ImageButton>
+                                    <ImageButton
+                                        Grid.Column="2"
+                                        HorizontalOptions="End"
+                                        VerticalOptions="Center"
+                                        WidthRequest="50"
+                                        HeightRequest="30"
+                                        Source="remove.png"
+                                        Aspect="AspectFit"
+                                        Command="{Binding Source={RelativeSource AncestorType={Type local:SectionsViewModel}}, Path=DeleteAction}"
+                                        CommandParameter="{Binding .}"
+                                        BackgroundColor="Transparent"
+                                    /> 
+                                </Grid>
+                            </Frame> 
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    NumberOfTapsRequired="1"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:SectionsViewModel}}, Path=Tapped}"		
+                                    CommandParameter="{Binding .}"
+                                /> 
+                                <DragGestureRecognizer
+                                    CanDrag="True"
+                                    DragStartingCommand="{Binding Source={RelativeSource AncestorType={x:Type local:SectionsViewModel}}, Path=Dragged}"		
+                                    DragStartingCommandParameter="{Binding .}"
+                                    DropCompletedCommand="{Binding Source={RelativeSource AncestorType={x:Type local:SectionsViewModel}}, Path=EndDragged}"
+                                />
+                                <DropGestureRecognizer
+                                    AllowDrop="True"
+                                    DropCommand="{Binding Source={RelativeSource AncestorType={x:Type local:SectionsViewModel}}, Path=Dropped}"		
+                                    DropCommandParameter="{Binding .}" 
+                                />
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Grid Margin="10, 10, 10, 10" Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+                <pv:PancakeView HeightRequest="40" WidthRequest="40" CornerRadius="20" HorizontalOptions="End" 
+                            VerticalOptions="Center" >
+                    <pv:PancakeView.BackgroundGradientStops>
+                        <pv:GradientStopCollection>
+                            <pv:GradientStop Color="#E3E7EE" Offset="0" />
+                            <pv:GradientStop Color="#FBFBFB" Offset="1" />
+                        </pv:GradientStopCollection>
+                    </pv:PancakeView.BackgroundGradientStops>
+                    <pv:PancakeView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateBack}"/>
+                    </pv:PancakeView.GestureRecognizers>
+                    <Image Source="back.png" HeightRequest="15" WidthRequest="15" HorizontalOptions="Center" VerticalOptions="Center"/>
+                </pv:PancakeView>
+                <Label Grid.Column="1" Text="" TextColor="Black" FontSize="12" Opacity="0.5" HorizontalOptions="Center" VerticalOptions="Center"/>
+                <pv:PancakeView Grid.Column="2" HeightRequest="40" WidthRequest="40" CornerRadius="20" HorizontalOptions="End" 
+                            VerticalOptions="Center">
+                    <pv:PancakeView.BackgroundGradientStops>
+                        <pv:GradientStopCollection>
+                            <pv:GradientStop Color="#E3E7EE" Offset="0" />
+                            <pv:GradientStop Color="#FBFBFB" Offset="1" />
+                        </pv:GradientStopCollection>
+                    </pv:PancakeView.BackgroundGradientStops>
+                    <pv:PancakeView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding AddSection}"/>
+                    </pv:PancakeView.GestureRecognizers>
+                    <Image Source="plus.png" HeightRequest="15" WidthRequest="15" HorizontalOptions="Center" VerticalOptions="Center"/>
+                </pv:PancakeView>
+            </Grid>
+        </Grid>
+    </RefreshView>
+</ContentPage>

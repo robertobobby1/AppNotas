@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+    <BuildWithMSBuildOnMono>true</BuildWithMSBuildOnMono>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2662" />  
+    <PackageReference Include="Xamarin.Essentials" Version="1.8.1" />
+    <PackageReference Include="SQLiteNetExtensions" Version="2.1.0" />
+    <PackageReference Include="Xamarin.CommunityToolkit" Version="2.0.6" />
+    <PackageReference Include="SkiaSharp" Version="2.88.8" />
+    <PackageReference Include="SkiaSharp.Views" Version="2.88.8" />
+    <PackageReference Include="SkiaSharp.Views.Forms" Version="2.88.8" />
+    <PackageReference Include="Xam.Plugin.Media" Version="6.0.2" />
+    <PackageReference Include="Xam.Plugins.Settings" Version="3.1.1" />
+    <PackageReference Include="Xamarin.Forms.PancakeView" Version="2.3.0.759" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Plugin.Permissions" Version="6.0.1" />
+    <PackageReference Include="Telerik.UI.for.Xamarin.Documents.Spreadsheet.Trial" Version="2024.2.426" />
+    <PackageReference Include="Telerik.UI.for.Xamarin.RichTextEditor.Trial" Version="2024.2.513" />
+    <PackageReference Include="Telerik.UI.for.Xamarin.Input.Trial" Version="2024.2.513" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="SQLite" />
+    <None Remove="sqlite-net-pcl" />
+    <None Remove="SQLiteNetExtensions" />
+    <None Remove="Utils\" />
+    <None Remove="Models\" />
+    <None Remove="Dependencies\" />
+    <None Remove="Views\Popups\" />
+    <None Remove="Behaviours\" />
+    <None Remove="Models\Interfaces\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Utils\" />
+    <Folder Include="Models\" />
+    <Folder Include="DependencyInjection\" />
+    <Folder Include="Views\Popups\" />
+    <Folder Include="Behaviours\" />
+    <Folder Include="Models\Interfaces\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Mono.Android">
+      <HintPath>..\..\..\..\..\..\..\Library\Frameworks\Xamarin.Android.framework\Versions\13.2.0.0\lib\xamarin.android\xbuild-frameworks\MonoAndroid\v13.0\Mono.Android.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>
