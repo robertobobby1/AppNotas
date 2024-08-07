@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -28,6 +26,8 @@ namespace AppNotas.ViewModels
         public ImageButton EditImageButton { set => SetProperty(ref editImageButton, value); get => editImageButton; }
         private string entryTextColor;
         public string EntryTextColor { get => entryTextColor; set => SetProperty(ref entryTextColor, value); }
+        private string flowDirection;
+        public string FlowDirection { get => flowDirection; set => SetProperty(ref flowDirection, value); }
 
         // COMMANDS
         public ICommand NavigateBack => new Command(PerformNavigateBack);
@@ -103,6 +103,8 @@ namespace AppNotas.ViewModels
 
             // Initialize memory synchronously to show correctly
             Memory.loadSectionsSync();
+            SetFlowDirection();
+
         }
 
         public void OnAppearing()
@@ -127,6 +129,18 @@ namespace AppNotas.ViewModels
             }
             catch (Exception ex) { Debug.WriteLine(ex); }
             finally { IsBusy = false; }
+        }
+
+        public void SetFlowDirection() {
+            if (Device.RuntimePlatform == Device.iOS)
+            {
+                FlowDirection = "RightToLeft"; 
+            }
+            else if (Device.RuntimePlatform == Device.Android)
+            {
+                FlowDirection = "LeftToRight"; 
+            }
+
         }
 
         /*************************************************************************

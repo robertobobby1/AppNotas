@@ -122,6 +122,24 @@
     <BundleResource Include="Resources\xamarin_logo%402x.png" />
     <BundleResource Include="Resources\xamarin_logo%403x.png" />
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
+    <BundleResource Include="Resources\back.png" />
+    <BundleResource Include="Resources\correct.png" />
+    <BundleResource Include="Resources\Default-568h%402x.png" />
+    <BundleResource Include="Resources\Default-Portrait.png" />
+    <BundleResource Include="Resources\Default-Portrait%402x.png" />
+    <BundleResource Include="Resources\Default.png" />
+    <BundleResource Include="Resources\Default%402x.png" />
+    <BundleResource Include="Resources\home.png" />
+    <BundleResource Include="Resources\menu.png" />
+    <BundleResource Include="Resources\next.png" />
+    <BundleResource Include="Resources\pause.png" />
+    <BundleResource Include="Resources\pencil.png" />
+    <BundleResource Include="Resources\play.png" />
+    <BundleResource Include="Resources\playBlack.png" />
+    <BundleResource Include="Resources\plus.png" />
+    <BundleResource Include="Resources\previous.png" />
+    <BundleResource Include="Resources\R.png" />
+    <BundleResource Include="Resources\remove.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -138,7 +156,7 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\AppNotas\AppNotas.csproj">
-      <Project>{0B9C689D-4E94-4992-AC7F-D16030438367}</Project>
+      <Project>{757831AD-F5E7-4AD5-90ED-6A3723A8E0EA}</Project>
       <Name>AppNotas</Name>
     </ProjectReference>
   </ItemGroup>

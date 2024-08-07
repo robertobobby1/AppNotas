@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using Telerik.Documents.Core;
 using Xamarin.Forms;
 using Xamarin.Forms.PancakeView;
 
 namespace AppNotas.Views
-{	
-	public partial class Menu : Grid
-	{
+{
+    public partial class Menu : Grid
+    {
         /*************************************************************************
          * 
          *                      BINDABLE PROPERTIES SECTION
@@ -27,7 +28,7 @@ namespace AppNotas.Views
         );
         public static readonly BindableProperty TextProperty = BindableProperty.Create(
             nameof(Text), typeof(string), typeof(Menu), "", propertyChanged: TextPropertyChanged
-        ); 
+        );
         public static readonly BindableProperty LeftCommandProperty = BindableProperty.Create(
             nameof(LeftCommand), typeof(ICommand), typeof(Menu), null, propertyChanged: LeftCommandPropertyChanged
         );
@@ -65,15 +66,39 @@ namespace AppNotas.Views
         public ICommand DefaultLeftIconCommand => new Command(leftIconClicked);
         public ICommand DefaultRightIconCommand => new Command(rightIconClicked);
 
-        public Menu ()
-		{
-			InitializeComponent ();
+        public Menu()
+        {
+            InitializeComponent();
 
             this.leftIcon.Command = DefaultLeftIconCommand;
             this.rightIcon.Command = DefaultLeftIconCommand;
 
             setImage();
-		}
+            setMargin();
+        }
+
+        public void setMargin(){
+            if (Device.RuntimePlatform == Device.iOS)
+            {
+                Margin = new Thickness
+                {
+                    Top = 50,
+                    Bottom = 10,
+                    Left = 10,
+                    Right = 10,
+                };
+            }
+            else if (Device.RuntimePlatform == Device.Android)
+            {
+                Margin = new Thickness
+                {
+                    Top = 10,
+                    Bottom = 10,
+                    Left = 10,
+                    Right = 10,
+                };
+            }
+        }
 
         public void setImage()
         {

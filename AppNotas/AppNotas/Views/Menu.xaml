@@ -5,6 +5,7 @@
     xmlns:pv="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:views="clr-namespace:AppNotas.Views"
     x:DataType="views:Menu"
+    x:Name="MainGrid"
     Margin="10, 10, 10, 10"
     x:Class="AppNotas.Views.Menu">
 <Grid.ColumnDefinitions>

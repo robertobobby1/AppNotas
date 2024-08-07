@@ -51,11 +51,11 @@
                     ItemsSource="{Binding Navigation}"
                     ItemsLayout="HorizontalGrid" 
                     VerticalOptions="Center"
-                    FlowDirection="RightToLeft">
+                    FlowDirection="{Binding FlowDirection}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <StackLayout x:DataType="model:Section" TranslationY="5">
-                                <Label Text="{Binding name, StringFormat=' {0} >'}" 
+                            <StackLayout x:DataType="model:Section">
+                                <Label Text="{Binding name, StringFormat=' {0} >'}"
                                     LineBreakMode="NoWrap"
                                     VerticalOptions="Center"
                                     TextColor="Black"
